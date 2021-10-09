@@ -81,10 +81,9 @@ var qwerty=time.split(":");
 	var d = new Date();
 now.setHours(qwerty[0]);
 now.setMinutes(qwerty[1]);
-var nowTime = now.getHours()*60+now.getMinutes();
-var dateTime = d.getHours()*60+d.getMinutes();
-
-if (nowTime >= dateTime) {
+d.setHours(d.getHours()-4);
+console.log(qwerty[0]+" "+qwerty[1]+" "+now+" "+d);
+if (now >= d) {
     return true;
 }
 return false;
