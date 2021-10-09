@@ -23,18 +23,18 @@ def request(api_key, terms, location = "NY", limit = 50):
     response = []
     id_set = set()
     for term in terms:  
-        offset = 100   
+        offset = 0  
         for i in range(20):
             print(i)
             offset += 50
-            params = {'term':term,'location': location, 'limit': limit, 'offset': offset}
+            params = {'term':term+" restaurant",'location': "NYC",'limit': limit}
             req = requests.get(url, params = params, headers = headers)
             parsed = req.json()
             try:
-                print(parsed)
-                print(12345)
+                print(parsed["total"])
+                if "businesses" not in parsed.keys():
+                    print("qwerty")
                 businesses = parsed["businesses"]
-                
                 for business in businesses:
                     dct = defaultdict(dict)
                     id = business['id']
@@ -67,8 +67,6 @@ def request(api_key, terms, location = "NY", limit = 50):
     with open('data.json', 'w') as openfile:
         json.dump(response, openfile, indent = 4)
     
-# fields: id, name, review_count, category (new) , display_phone, 
-# display_address (join list), rating, price, open hours, coordinates, zip code
 def main():         
     request(API_KEY, cuisines)
 
